@@ -24,7 +24,7 @@ get_type turns a string into a type, or a list of strings into a list of types. 
   >>> get_type("numpy.ndarray")
   <class 'numpy.ndarray'>
   
-check_type will check any object against anything that is a valid input for get_type. It does not check that the object is *actually* of the given type, just that it can be cast to that type. ::
+check_type will check any object against anything that is a valid input for get_type. It does not check that the object is *actually* of the given type, just that it can be cast to that type, *and that casting the resultant value back to the original type gives you the same value*. ::
 
   >>> from stparser import check_type
   >>> check_type("float", 5.0)

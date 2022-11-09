@@ -39,10 +39,15 @@ def _get_external_type(t):
     
 
 def _check(t: type, value: Any):
+    t2 = type(value)
     try:
-        t(value)
+        s =t(value)
     except (ValueError, TypeError):
         raise TypeError(f"Type {type(value).__name__} cannot be cast as type {t.__name__}")
+    
+    if t2(s) != value:
+        raise TypeError(f"Type {type(value).__name__} can be cast as type {t.__name__}, but this may produce unintended consequences")
+
     return True
 
 
