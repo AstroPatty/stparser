@@ -8,14 +8,14 @@ def get_type(name):
 
 @get_type.register
 def _(name: str):
-    if len( (s := name.split("."))) > 1:
+    if len( (s := name.split("."))) > 1 and all(' ' not in s_ for s_ in s):
         return _get_external_type(s)
 
     try:
         type_ = eval(name)
         if type(type_) != type:
             raise NameError
-    except NameError:
+    except (NameError, SyntaxError):
         raise TypeError(f"Passed value {name} does not match any built-in python types!")
     return type_
 
