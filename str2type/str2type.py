@@ -66,6 +66,7 @@ def _(t: list, value: Any):
             continue
     raise TypeError(f"Value {value} cannot be cast as any of the types in {types}")
 
+@singledispatch
 def parse_types(data: dict):
     new_data = {}
     for key, value in data.items():
@@ -76,4 +77,14 @@ def parse_types(data: dict):
                 new_data.update({key: get_type(value)})
             except TypeError:
                 new_data.update({key: value})
+    return new_data
+
+@parse_types.register
+def _(data: list):
+    new_data = [None for i in range(len(data))]
+    for i, item in enumerate(data):
+        try:
+            new_data[i] = get_type(item)
+        except TypeError:
+            new_data[i] = item
     return new_data
