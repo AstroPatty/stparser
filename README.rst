@@ -3,6 +3,12 @@ stparser
 
 stparser is a small utility for converting strings to types. I built this because I wanted to be able to include type names in arbitrary configuration files, and have them parsed into something I can actully check arguments against.
 
+stparser can be install with pip, as usual::
+
+  pip install stparser
+  
+stparser requires python >= 3.8 (because I love the walrus operator :=)
+
 stparser includes three functions: get_type, check_type, and parse_types.
 
 
