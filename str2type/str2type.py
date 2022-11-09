@@ -3,7 +3,11 @@ from typing import Any
 import importlib
 
 @singledispatch
-def get_type(name: str):
+def get_type(name):
+    raise TypeError(f"Cannot convert {name} to a type!")
+
+@get_type.register
+def _(name: str):
     if len( (s := name.split("."))) > 1:
         return _get_external_type(s)
 
@@ -61,3 +65,15 @@ def _(t: list, value: Any):
         except TypeError:
             continue
     raise TypeError(f"Value {value} cannot be cast as any of the types in {types}")
+
+def parse_types(data: dict):
+    new_data = {}
+    for key, value in data.items():
+        if type(value) == dict:
+            new_data.update({key: parse_types(value)})
+        else:
+            try:
+                new_data.update({key: get_type(value)})
+            except TypeError:
+                new_data.update({key: value})
+    return new_data
