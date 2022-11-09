@@ -1,4 +1,4 @@
-from .str2type import get_type, check_type, parse_types
+from .stparser import get_type, check_type, parse_types
 
 __all__ = ["get_type", "check_type", "parse_types"]
 
