@@ -1,6 +1,13 @@
 from functools import singledispatch
 from typing import Any
 import importlib
+import sys
+
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+    __allowed_types__ = [type, GenericAlias]
+else:
+    __allowed_types__ = [type]
 
 @singledispatch
 def get_type(name):
@@ -13,7 +20,7 @@ def _(name: str):
 
     try:
         type_ = eval(name)
-        if type(type_) != type:
+        if type(type_) not in __allowed_types__:
             raise NameError
     except (NameError, SyntaxError):
         raise TypeError(f"Passed value {name} does not match any built-in python types!")

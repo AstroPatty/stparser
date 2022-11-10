@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stparser"
-version = "0.1.3"
+version = "0.2.0"
 description = "A tool to convert strings to types. Primary use case is type specifications in configuration files."
 authors = ["Patrick Wells <pwells@ucdavis.edu>"]
 
